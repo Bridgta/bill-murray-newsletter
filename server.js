@@ -16,9 +16,19 @@ app.post("/", function(req, res) {
   var lastName = req.body.lName;
   var email = req.body.email;
 
+  var option = {
+      url:
+  }
+
+  request(options, function(error, response, body){
+
+  })
+
   console.log(firstName, lastName, email);
 });
 
 app.listen(3000, function() {
   console.log("Server is runnin on port 3000");
 });
+
+

@@ -32,21 +32,28 @@ app.post("/", function(req, res) {
   var jsonData = JSON.stringify(data);
 
   var options = {
-    url: "https://us4.api.mailchimp.com/3.0/lists/",
+    url: "https://us4.api.mailchimp.com/3.0/lists/30608749bd",
     method: "POST",
-    headers: {},
     body: jsonData
   };
 
   request(options, function(error, response, body) {
     if (error) {
-      res.send("There was an error w signing up");
+      res.sendFile(__dirname + "/failure.html");
     } else {
-      console.log(response.statusCode);
+      if (response.statusCode === 200) {
+        res.sendFile(__dirname + "/success.html");
+      } else {
+        res.sendFile(__dirname + "/failure.html");
+      }
     }
   });
 });
 
-app.listen(3000, function() {
+app.post("/failure", function(req, res) {
+  res.redirect("/");
+});
+
+app.listen(process.env.PORT || 3000, function() {
   console.log("Server is runnin on port 3000");
 });
